@@ -6,7 +6,7 @@
 ---
 
 ## 🚀 Özellik/ Önem
-- Unity Engine, assetler ve chatGpt ile birlikte el ele verip geliştirdiğimiz ilk oyun projemiz.
+- Unity Engine, assetler ve youtube ile birlikte el ele verip geliştirdiğimiz ilk oyun projemiz.
 
 ---
 <p align="center">
