@@ -4,11 +4,11 @@ using TMPro;
 using UnityStandardAssets.Characters.FirstPerson;
 public class PauseGameManager : MonoBehaviour
 {
-    public TextMeshProUGUI LevelText;// bulunduðun level texti
+    public TextMeshProUGUI LevelText; // name of the current level
 
     public GameObject PauseCanvas;
 
-    public KeyCode PauseKey = KeyCode.Tab; // pause için basýlan tuþ
+    public KeyCode PauseKey = KeyCode.Tab; // key used to pause
 
     bool isPaused;
 
@@ -30,10 +30,10 @@ public class PauseGameManager : MonoBehaviour
             Time.timeScale = 0;
             AudioListener.pause = true;
 
-            Cursor.lockState = CursorLockMode.None; //cursor tekrar hareket edebilsin diye serbest býrakýlýr.
+            Cursor.lockState = CursorLockMode.None; // unlock the cursor so it can move again
             Cursor.visible = true;
 
-            Object.FindFirstObjectByType<FirstPersonController>().enabled = false; // disable the karakter.
+            Object.FindFirstObjectByType<FirstPersonController>().enabled = false; // disable the character
 
         }else
         {
@@ -44,20 +44,20 @@ public class PauseGameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        isPaused = false; //unpause the game
+        isPaused = false; // unpause the game
 
         Time.timeScale = 1;
         AudioListener.pause = false;
 
-        Cursor.lockState = CursorLockMode.Locked; //cursor tekrar hareket edebilsin diye serbest býrakýlýr.
+        Cursor.lockState = CursorLockMode.Locked; // lock the cursor back to the center
         Cursor.visible = false;
 
-        Object.FindFirstObjectByType<FirstPersonController>().enabled = true; // disable the karakter.
+        Object.FindFirstObjectByType<FirstPersonController>().enabled = true; // enable the character again
     }
 
     public void QuitGame()
     {
-        isPaused = false; //unpause the game
+        isPaused = false; // unpause the game
 
         Time.timeScale = 1;
         AudioListener.pause = false;

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SoundsJS : MonoBehaviour
 {
-    public AudioSource source; //Sesin kaynaðý.
-    public AudioClip screamSound; //Sesimiz.    
+    public AudioSource source; // audio source that plays the sound
+    public AudioClip screamSound; // the scream sound    
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class SoundsJS : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            print("Ses oynatýldý");
+            print("Scream sound played");
             StartCoroutine(playSound());
         }
     }

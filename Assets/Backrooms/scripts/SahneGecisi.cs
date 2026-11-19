@@ -1,15 +1,15 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Sahne yönetimi için gerekli
+using UnityEngine.SceneManagement; // needed for scene loading
 
 public class SceneTransition : MonoBehaviour
 {
-    public string PoolroomsDemo; // Hangi sahneye geçileceðini belirle
+    public string PoolroomsDemo; // scene to switch to
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) // Eðer çarpýþan obje "Player" tag'ine sahipse
+        if (other.CompareTag("Player")) // if the object that entered is the player
         {
-            SceneManager.LoadScene("Level 1"); // Belirtilen sahneye geçiþ yap
+            SceneManager.LoadScene("Level 1"); // load the Poolrooms level
         }
     }
 }

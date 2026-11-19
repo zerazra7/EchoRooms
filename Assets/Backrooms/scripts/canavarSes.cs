@@ -7,7 +7,7 @@ public class CanavarSes : MonoBehaviour
     public AudioClip sesKlip;
     private AudioSource sesKaynak;
 
-    public float sesSuresi = 3f; // Sesin ne kadar çalacaðýný ayarla
+    public float sesSuresi = 3f; // how long the sound plays (seconds)
 
     private bool sesCaldi = false;
 

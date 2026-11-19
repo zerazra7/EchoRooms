@@ -16,17 +16,17 @@ public class itemToplama : MonoBehaviour
             PlayerPrefs.SetInt("HasKeycard", 1);
             PlayerPrefs.Save();
 
-            //sayacý baþlat
+            // start the timer
             showMessage = true;
             timer = 2f;
 
-            // Mesh'i ve collider'ý kapat (görünmez + tekrar tetikleme yok)
+            // hide the mesh and turn off the collider (invisible, cannot trigger again)
             var rend = GetComponent<MeshRenderer>();
             if (rend) rend.enabled = false;
             var col = GetComponent<Collider>();
             if (col) col.enabled = false;
 
-            // 2 saniye sonra nesneyi yokla
+            // destroy the object after 2 seconds
             Destroy(gameObject, 2f);
         }
     }
@@ -41,7 +41,7 @@ public class itemToplama : MonoBehaviour
         }
     }
 
-    // OnGUI ile ekranda label gösteriyoruz
+    // show a label on screen with OnGUI
     private void OnGUI()
     {
         if (showMessage)
@@ -52,9 +52,9 @@ public class itemToplama : MonoBehaviour
             style.fontStyle = FontStyle.Bold;
             style.normal.textColor = Color.black;
 
-            // Bütün ekraný kapsayan bir kutu:
+            // a box that covers the whole screen
             Rect fullScreenRect = new Rect(0, 0, Screen.width, Screen.height);
-            GUI.Label(fullScreenRect, "KeyCard alýndý!", style);
+            GUI.Label(fullScreenRect, "Keycard collected!", style);
         }
     }
 }

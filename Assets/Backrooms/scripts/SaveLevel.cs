@@ -17,7 +17,7 @@ public class SaveLevel : MonoBehaviour
     public void SaveGame() 
     { 
         SaveGameUI.SetActive(true);
-        // save mekanikleri
+        // save the current level
         PlayerPrefs.SetString("loaded level",SceneManager.GetActiveScene().name);
 
         PlayerPrefs.Save();

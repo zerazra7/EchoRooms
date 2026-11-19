@@ -7,7 +7,7 @@ public class enemyController : MonoBehaviour
     public float killDistance = 1.2f;
 
     [Header("UI")]
-    [Tooltip("Inspector'dan sürükle býrak: GameOverPanel objesi")]
+    [Tooltip("Drag the GameOverPanel object here")]
     public GameObject gameOverPanel;
 
     private NavMeshAgent agent;
@@ -19,14 +19,14 @@ public class enemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        // panel oyunda baþta kapalý olsun:
+        // the panel starts hidden
         gameOverPanel.SetActive(false);
     }
 
     void Update()
     {
         if (gameOverTriggered)
-            return;  // bir kez tetiklendiyse artýk iþlemleri pas geç
+            return;  // already triggered once, skip everything
 
         agent.SetDestination(target.position);
         bool isMoving = agent.velocity.sqrMagnitude > 0.01f;
@@ -37,13 +37,12 @@ public class enemyController : MonoBehaviour
         {
             gameOverTriggered = true;
 
-            // Hareketi durdur:
+            // stop moving
             agent.isStopped = true;
             anim.SetBool("isMoving", false);
 
-            // Paneli aç, zamaný durdurablrsin
-            gameOverPanel.SetActive(true);
-            Time.timeScale = 0f;
+            // show the panel and stop time
+            DeathScreen.Show(gameOverPanel, "It caught you...");
         }
     }
 }

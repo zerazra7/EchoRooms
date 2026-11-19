@@ -5619,6 +5619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 400814202}
   playerController: {fileID: 1988329289}
+  deathMessage: You didn't make it...
 --- !u!65 &76007362
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8246,6 +8247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: {fileID: 1729427132}
+  noteScreenHeight: 0.8
 --- !u!65 &131079648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20240,6 +20242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 400814202}
   playerController: {fileID: 1988329289}
+  deathMessage: You didn't make it...
 --- !u!65 &305003358
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40857,6 +40860,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5431986030391815464, guid: f45f16e73b88f1841a6e7efd117b658f, type: 3}
   m_PrefabInstance: {fileID: 649662716}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &650210977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+  m_PrefabInstance: {fileID: 1998627977}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &652473805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60561,6 +60569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 400814202}
   playerController: {fileID: 1988329289}
+  deathMessage: You didn't make it...
 --- !u!65 &971882657
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73270,7 +73279,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2191946360967798765, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
   m_PrefabInstance: {fileID: 1998627977}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 650210977}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fd3fd566c566fd409d7d93246234c83, type: 3}
@@ -116128,12 +116137,25 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
   m_PrefabInstance: {fileID: 1998627977}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 650210977}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1988329290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650210977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743433aa651d4ce48a387ef535da63c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerNoteScript
+  interactMessage: {fileID: 0}
 --- !u!1001 &1990259510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116787,7 +116809,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1988329290}
   m_SourcePrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
 --- !u!1001 &1999613330
 PrefabInstance:

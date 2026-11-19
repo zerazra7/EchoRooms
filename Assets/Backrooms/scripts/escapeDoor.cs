@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EscapeDoor : MonoBehaviour
 {
-    public AudioClip escapeSound; // Inspector'dan vereceðiz
+    public AudioClip escapeSound; // set in the Inspector
     private AudioSource audioSource;
 
     private void Start()

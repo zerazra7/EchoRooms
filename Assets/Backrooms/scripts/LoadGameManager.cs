@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LoadGameManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI LoadGameText;  //hangi level yüklenecek.
+    [SerializeField] TextMeshProUGUI LoadGameText;  // which level will be loaded
 
     [SerializeField] Button LoadButton;
 
@@ -15,7 +15,7 @@ public class LoadGameManager : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(PlayerPrefs.GetString("loaded level", " ")))
         { 
-            LoadButton.interactable = false;   // yüklenecek level yoksa buttonla etkileþime geçeme.
+            LoadButton.interactable = false;   // no saved level, so the button cannot be used
 
         }
         else

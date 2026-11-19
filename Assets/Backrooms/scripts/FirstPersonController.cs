@@ -86,7 +86,7 @@ namespace StarterAssets
             }
         }
 
-        private void Awake()  // her þeyden önce çalýþan komuttur. (starttan önce)
+        private void Awake()  // runs before everything else (before Start)
         {
             // get a reference to our main camera
             if (_mainCamera == null)
@@ -268,7 +268,7 @@ namespace StarterAssets
         {
             if (hit.collider.CompareTag("Enemy"))
             {
-                Debug.Log("Oyunu kaybettin!");
+                Debug.Log("The enemy touched the player");
                 
             }
         }

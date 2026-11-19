@@ -4,25 +4,23 @@ public class PlayerNoteScript : MonoBehaviour
 {
     private NoteScript activeNote;
 
-    [Tooltip("Sahnede 'InteractMessage' adlý UI GameObject'ini buraya sürükleyip býrakýn")]
+    [Tooltip("Optional: a UI object shown while standing at a note (e.g. \"Press E to read\"). Can be left empty.")]
     public GameObject interactMessage;
 
     void Start()
     {
-        // 1) Inspector'tan atanmamýþsa sahneden bulmaya çalýþ
+        // 1) if it was not set in the Inspector, try to find it in the scene
         if (interactMessage == null)
         {
-            interactMessage = GameObject.Find("InteractMessage");
-            if (interactMessage == null)
-                Debug.LogError("PlayerNoteScript: 'InteractMessage' adlý bir GameObject bulunamadý. Inspector'dan atamayý unutmayýn veya isimleri kontrol edin!");
+            interactMessage = GameObject.Find("InteractMessage"); // optional, fine if there is none
         }
-        // 2) SetActive çaðrýsýný null-kontrolüyle sar
-        interactMessage?.SetActive(false);
+        // 2) only call SetActive if it exists
+        if (interactMessage != null) interactMessage.SetActive(false);
     }
 
     void Update()
     {
-        // ancak gerçekten bir note objesindeysem E'ye basýnca Toggle
+        // only toggle with E when actually standing at a note
         if (activeNote != null && Input.GetKeyDown(KeyCode.E))
             activeNote.ToggleNote();
     }
@@ -31,14 +29,14 @@ public class PlayerNoteScript : MonoBehaviour
     {
         if (other.CompareTag("Note"))
         {
-            // NoteScript komponentini al
+            // get the NoteScript component
             activeNote = other.GetComponent<NoteScript>();
             if (activeNote == null)
             {
-                Debug.LogError($"PlayerNoteScript: {other.name} objesinde NoteScript yok!");
+                Debug.LogError($"PlayerNoteScript: {other.name} has no NoteScript!");
                 return;
             }
-            interactMessage?.SetActive(true);
+            if (interactMessage != null) interactMessage.SetActive(true);
         }
     }
 
@@ -46,12 +44,12 @@ public class PlayerNoteScript : MonoBehaviour
     {
         if (other.CompareTag("Note") && activeNote != null)
         {
-            // Eðer not açýksa kapat
+            // if the note is open, close it
             if (activeNote.GetNoteStatus())
                 activeNote.ToggleNote();
 
             activeNote = null;
-            interactMessage?.SetActive(false);
+            if (interactMessage != null) interactMessage.SetActive(false);
         }
     }
 }

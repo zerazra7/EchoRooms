@@ -5,8 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5.0f;
     public float turnSpeed;
-    public AudioClip[] FootstepClips; // Ayak sesleri için ses dosyalarý
-    public float StepInterval = 1f; // Her adým arasýnda geçen süre (saniye)
+    public AudioClip[] FootstepClips; // footstep sound clips
+    public float StepInterval = 1f; // time between steps (seconds)
 
     private CharacterController _characterController;
     private AudioSource _audioSource;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
         transform.Translate(Vector3.right * Time.deltaTime * turnSpeed);
-        // Karakter hareket ediyorsa ayak seslerini tetikle
+        // play footsteps while the character is moving
         if (_characterController.isGrounded && _characterController.velocity.magnitude > 0.1f)
         {
             _stepTimer -= Time.deltaTime;
@@ -33,12 +33,12 @@ public class PlayerController : MonoBehaviour
             if (_stepTimer <= 0f)
             {
                 PlayFootstep();
-                _stepTimer = StepInterval; // Zamanlayýcýyý sýfýrla
+                _stepTimer = StepInterval; // reset the timer
             }
         }
         else
         {
-            // Karakter duruyorsa zamanlayýcýyý sýfýrla
+            // character is standing still, reset the timer
             _stepTimer = StepInterval;
         }
     }
@@ -47,8 +47,8 @@ public class PlayerController : MonoBehaviour
     {
         if (FootstepClips.Length > 0)
         {
-            int index = Random.Range(0, FootstepClips.Length); // Rastgele bir ses seç
-            _audioSource.PlayOneShot(FootstepClips[index]);    // Seçilen sesi çal
+            int index = Random.Range(0, FootstepClips.Length); // pick a random clip
+            _audioSource.PlayOneShot(FootstepClips[index]);    // play it
         }
     }
 }

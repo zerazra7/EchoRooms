@@ -7,8 +7,11 @@ public class DeathZone : MonoBehaviour
     
     public GameObject gameOverPanel;
 
-    [Header("Opsiyonel: Player Controller")]
+    [Header("Optional: Player Controller")]
     public MonoBehaviour playerController;
+
+    [Tooltip("Shown under YOU DIED")]
+    public string deathMessage = "You didn't make it...";
 
     private bool isDead = false;
 
@@ -24,9 +27,7 @@ public class DeathZone : MonoBehaviour
 
     private void ShowGameOver()
     {
-        Time.timeScale = 0f;
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
+        DeathScreen.Show(gameOverPanel, deathMessage);
 
       
         Cursor.lockState = CursorLockMode.None;

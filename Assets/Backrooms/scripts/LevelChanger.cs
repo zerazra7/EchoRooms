@@ -3,10 +3,10 @@ using UnityEngine.SceneManagement;
 public class LevelChanger : MonoBehaviour
 {
 
-    // new game button için kullanýldý.?
+    // used by the New Game button
     public void ChangeScene(string sceneName)
     {
-        Time.timeScale = 1f; // zamaný normale döndürür.
+        Time.timeScale = 1f; // set time back to normal
         SceneManager.LoadScene(sceneName);
     }
 }

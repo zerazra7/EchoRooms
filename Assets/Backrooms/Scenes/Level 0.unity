@@ -11707,6 +11707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &81204332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44374,6 +44375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &286393418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60695,6 +60697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &383153802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61279,6 +61282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &386598779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62996,6 +63000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!65 &400585161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76180,10 +76185,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4422793022915085685, guid: 0282ff9eff175174e9819e46afea1848, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 65d6336359d397146a15425e05c3ca0d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -108910,6 +108911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: {fileID: 312801265}
+  noteScreenHeight: 0.8
 --- !u!65 &712080262
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123597,6 +123599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: {fileID: 1049538368}
+  noteScreenHeight: 0.8
 --- !u!1001 &807338487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141338,6 +141341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &928843477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161223,6 +161227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &1058004451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172324,6 +172329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &1124121171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -183786,6 +183792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &1198309261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -189827,6 +189834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &1241642120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224226,6 +224234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &1470898894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -232683,6 +232692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!65 &1531418114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -250332,8 +250342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPanel: {fileID: 1215885452}
   endText: {fileID: 831894192}
-  displayDuration: 3
   menuSceneName: mainMenu
+  fadeDuration: 2
 --- !u!1001 &1636394784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281920,6 +281930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!4 &1830429200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 849101419374296644, guid: bfd62682afc46bd4184ccb15cb3c13cf, type: 3}
@@ -283680,6 +283691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: {fileID: 1348279857}
+  noteScreenHeight: 0.8
 --- !u!65 &1844097819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -300439,6 +300451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!4 &1946458856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1081999650439559203, guid: 3e9d1896407e5584daf0ad847b260b58, type: 3}
@@ -326908,6 +326921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1 &2108562330
 GameObject:
   m_ObjectHideFlags: 0
@@ -327035,6 +327049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &2109412254
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327892,6 +327907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1709947975}
   playerController: {fileID: 1201205723}
+  deathMessage: You didn't make it...
 --- !u!1001 &2116225705
 PrefabInstance:
   m_ObjectHideFlags: 0

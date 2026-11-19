@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class ResetKeycardOnStart : MonoBehaviour
 {
-    // Static flag: uygulama ayaða kalktýðýnda false, bir kez Reset edince true olur
+    // Static flag: false when the game starts, true after the first reset
     private static bool hasReset = false;
 
     void Awake()
     {
-        // Sadece daha önce hiç resetlenmediyse temizle
+        // only clear it if it has not been reset yet
         if (!hasReset)
         {
             PlayerPrefs.DeleteKey("HasKeycard");
-            // veya PlayerPrefs.SetInt("HasKeycard", 0);
+            // or: PlayerPrefs.SetInt("HasKeycard", 0);
             PlayerPrefs.Save();
             hasReset = true;
         }

@@ -7,7 +7,7 @@ using UnityEditor;
 public class PlayerGameOver : MonoBehaviour
 {
     [Header("Game Over UI Panel")]
-    [SerializeField] private GameObject gameOverPanel;  // Inspector’dan sürükle
+    [SerializeField] private GameObject gameOverPanel;  // drag it in from the Inspector
 
     private bool isGameOver = false;
 
@@ -23,30 +23,27 @@ public class PlayerGameOver : MonoBehaviour
 
     private void GameOver()
     {
-        // 1) Zamaný durdur
-        Time.timeScale = 0f;
-        // 2) Paneli aç
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
+        // freeze the game and show "YOU DIED", then the Game Over panel
+        DeathScreen.Show(gameOverPanel, "It caught you...");
     }
 
-    // --- Aþaðýdakileri UI Butonlarýna baðla ---
+    // --- hook these up to the UI buttons ---
 
-    // New Game butonuna
+    // for the New Game button
     public void RestartGame()
     {
-        // Zaman ölçeðini normale döndür
+        // set time scale back to normal
         Time.timeScale = 1f;
-        // Ayný sahneyi yeniden yükle
+        // reload the same scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Exit Game butonuna
+    // for the Exit Game button
     public void QuitGame()
     {
         Application.Quit();
 #if UNITY_EDITOR
-        // Editor’da Play modunu kapatýr
+        // stops Play mode in the editor
         EditorApplication.isPlaying = false;
 #endif
     }
