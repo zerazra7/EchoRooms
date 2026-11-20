@@ -18,6 +18,10 @@ public class PlayerGameOver : MonoBehaviour
         if (isGameOver) return;
         if (other.CompareTag("Enemy"))
         {
+            // monster is getting up after a jump, the player can run past it
+            var enemy = other.GetComponentInParent<enemyController>();
+            if (enemy != null && enemy.IsHarmless) return;
+
             isGameOver = true;
             GameOver();
         }
