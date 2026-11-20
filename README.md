@@ -1,6 +1,6 @@
 # EchoRooms
 
-A first-person horror game set in the Backrooms, made in Unity as my Bachelor's thesis at Pamukkale University (2025).
+My first game project: a first-person horror game set in the Backrooms, made in Unity as my Bachelor's thesis at Pamukkale University (2025).
 
 **Play it in the browser or download it for Windows: [zerazra7.itch.io/echorooms](https://zerazra7.itch.io/echorooms)**
 
