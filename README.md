@@ -53,4 +53,5 @@ Unity 6 · C# · Universal Render Pipeline (URP) · NavMesh · WebGL
 
 - Environment: The Backrooms by Gamertose (Unity Asset Store)
 - Monsters: characters and animations from Mixamo
-- Sound and jumpscares: Berat Can Avcı
+- Jumpscares: Berat Can Avcı
+- Sounds: "Monster Roar" by qubodup (CC BY 3.0) and "MONSTER" by Victor_Natas (CC BY 4.0) from Freesound; other sounds are CC0 from Freesound
