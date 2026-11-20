@@ -29,7 +29,6 @@ The right door takes you to the Poolrooms, a second level where you find a keyca
 | Shift | Run |
 | Space | Jump |
 | E | Read notes (time stops while reading) |
-| Tab | Pause |
 | - / + | Mouse sensitivity (also a slider in the main menu) |
 
 ## My role
@@ -40,7 +39,7 @@ I started from the demo scenes of an environment pack (see Credits) and turned t
 
 - **Game design:** the story told through notes, the route between the two levels, the keycard and portal loop, where the danger is
 - **Enemy AI:** a crawling monster that chases the player with Unity's NavMesh, plays a sound when it gets close and kills on contact
-- **Gameplay scripts (C#):** notes, keycard and exit door, ring portal with random return points, deadly pools, saving the current level, pause menu
+- **Gameplay scripts (C#):** notes, keycard and exit door, ring portal with random return points, deadly pools, saving the current level
 - **Death and ending screens:** built fully from code, with fades and sound fade-out
 - **Notes:** the game stops while a note is open, so the player can read the story without the monster getting closer
 - **Escape timer:** measures each run (reading time doesn't count) and saves the best time, shown in the main menu
