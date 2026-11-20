@@ -33,13 +33,11 @@ The right door takes you to the Poolrooms, a second level where you find a keyca
 
 ## My role
 
-This was a two-person thesis project. I did everything except the sound and the jumpscares, which my teammate Berat Can Avcı made.
-
-I started from the demo scenes of an environment pack (see Credits) and turned them into a full game with its own story, enemy, puzzle and ending:
+This was a two-person thesis project. I started from the demo scenes of an environment pack (see Credits) and turned them into a full game with its own story, enemy, puzzle and ending:
 
 - **Game design:** the story told through notes, the route between the two levels, the keycard and portal loop, where the danger is
 - **Enemy AI:** a crawling monster that chases the player with Unity's NavMesh, plays a sound when it gets close and kills on contact
-- **Gameplay scripts (C#):** notes, keycard and exit door, ring portal with random return points, deadly pools, saving the current level
+- **Gameplay scripts (C#):** notes, keycard and exit door, ring portal with random return points, deadly pools
 - **Death and ending screens:** built fully from code, with fades and sound fade-out
 - **Notes:** the game stops while a note is open, so the player can read the story without the monster getting closer
 - **Escape timer:** measures each run (reading time doesn't count) and saves the best time, shown in the main menu
@@ -55,5 +53,4 @@ Unity 6 · C# · Universal Render Pipeline (URP) · NavMesh · WebGL
 
 - Environment: The Backrooms by Gamertose (Unity Asset Store)
 - Monsters: characters and animations from Mixamo
-- Player controller: Unity Standard Assets (FPSController)
 - Sound and jumpscares: Berat Can Avcı
