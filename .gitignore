@@ -72,8 +72,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Local-only files (not part of the project)
-/CLAUDE.md
-/.claude/
 /.plastic/
 /ignore.conf
 

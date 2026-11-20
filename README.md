@@ -4,6 +4,16 @@ A first-person horror game set in the Backrooms, made in Unity as my Bachelor's 
 
 **Play it in the browser or download it for Windows: [zerazra7.itch.io/echorooms](https://zerazra7.itch.io/echorooms)**
 
+<p align="center">
+  <img src="screenshots/menu.png" alt="Main menu" width="90%"/>
+</p>
+<p align="center">
+  <img src="screenshots/level0-smiley.png" alt="Level 0 with the smiley face drawing" width="45%"/>
+  <img src="screenshots/level0-note.png" alt="A note on the wall in Level 0" width="45%"/>
+  <img src="screenshots/poolrooms.png" alt="The Poolrooms with the monster" width="45%"/>
+  <img src="screenshots/poolrooms-rings.png" alt="The rings in the Poolrooms" width="45%"/>
+</p>
+
 ## About the game
 
 You wake up in the corner of an endless yellow maze. Notes scattered around the level tell the story and point you towards the right door, while a creature slowly crawls after you.
