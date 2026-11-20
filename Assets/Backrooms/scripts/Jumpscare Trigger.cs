@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// jumpscare that plays when the mouse is over this object, only once
 public class JumpscareTrigger : MonoBehaviour
 {
     public Animation JumpscareAnimation;
@@ -10,13 +11,15 @@ public class JumpscareTrigger : MonoBehaviour
 
     public void OnMouseOver()
     {
+        // play the animation and the sound
         JumpscareAnimation.Play();
 
-        if (JumpscareAudio != null )
+        if (JumpscareAudio != null)
         {
             JumpscareAudio.PlayOneShot(AudioClip);
         }
 
-        this.gameObject.SetActive( false );
+        // turn the trigger off so it doesn't play again
+        this.gameObject.SetActive(false);
     }
 }

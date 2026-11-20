@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+// menu buttons use this to open a scene (new game etc.)
 public class LevelChanger : MonoBehaviour
 {
-
-    // new game button için kullanýldý.?
     public void ChangeScene(string sceneName)
     {
-        Time.timeScale = 1f; // zamaný normale döndürür.
+        // time could still be stopped from a pause or death
+        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
     }
 }

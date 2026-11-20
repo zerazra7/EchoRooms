@@ -4,13 +4,15 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 #endif
 
+// on the player: dies when the monster touches them
 public class PlayerGameOver : MonoBehaviour
 {
     [Header("Game Over UI Panel")]
-    [SerializeField] private GameObject gameOverPanel;  // Inspector’dan sürükle
+    [SerializeField] private GameObject gameOverPanel;
 
     private bool isGameOver = false;
 
+    // touched by the monster: show the death screen (only once)
     private void OnTriggerEnter(Collider other)
     {
         if (isGameOver) return;
@@ -23,30 +25,22 @@ public class PlayerGameOver : MonoBehaviour
 
     private void GameOver()
     {
-        // 1) Zamaný durdur
-        Time.timeScale = 0f;
-        // 2) Paneli aç
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
+        DeathScreen.Show(gameOverPanel, "It caught you...");
     }
 
-    // --- Aþaðýdakileri UI Butonlarýna baðla ---
-
-    // New Game butonuna
+    // buttons of the old game over panel
+    // restart: time back to normal and open the same level again
     public void RestartGame()
     {
-        // Zaman ölçeðini normale döndür
         Time.timeScale = 1f;
-        // Ayný sahneyi yeniden yükle
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Exit Game butonuna
+    // quit: close the game (stops play mode in the editor)
     public void QuitGame()
     {
         Application.Quit();
 #if UNITY_EDITOR
-        // Editor’da Play modunu kapatýr
         EditorApplication.isPlaying = false;
 #endif
     }

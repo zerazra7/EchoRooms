@@ -1,57 +1,53 @@
 using UnityEngine;
 
+// on the player: reading notes with E when standing next to one
 public class PlayerNoteScript : MonoBehaviour
 {
-    private NoteScript activeNote;
+    private NoteScript activeNote; // the note the player is standing at
 
-    [Tooltip("Sahnede 'InteractMessage' adlý UI GameObject'ini buraya sürükleyip býrakýn")]
+    [Tooltip("\"Press E to read\" text, can be empty")]
     public GameObject interactMessage;
 
+    // find the "press E" text if it's not set, and hide it at the start
     void Start()
     {
-        // 1) Inspector'tan atanmamýþsa sahneden bulmaya çalýþ
         if (interactMessage == null)
-        {
             interactMessage = GameObject.Find("InteractMessage");
-            if (interactMessage == null)
-                Debug.LogError("PlayerNoteScript: 'InteractMessage' adlý bir GameObject bulunamadý. Inspector'dan atamayý unutmayýn veya isimleri kontrol edin!");
-        }
-        // 2) SetActive çaðrýsýný null-kontrolüyle sar
-        interactMessage?.SetActive(false);
+        if (interactMessage != null) interactMessage.SetActive(false);
     }
 
+    // E opens/closes the note, only when standing at one
     void Update()
     {
-        // ancak gerçekten bir note objesindeysem E'ye basýnca Toggle
         if (activeNote != null && Input.GetKeyDown(KeyCode.E))
             activeNote.ToggleNote();
     }
 
+    // walked up to a note: remember it and show "press E"
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Note"))
         {
-            // NoteScript komponentini al
             activeNote = other.GetComponent<NoteScript>();
             if (activeNote == null)
             {
-                Debug.LogError($"PlayerNoteScript: {other.name} objesinde NoteScript yok!");
+                Debug.LogError($"PlayerNoteScript: {other.name} has no NoteScript!");
                 return;
             }
-            interactMessage?.SetActive(true);
+            if (interactMessage != null) interactMessage.SetActive(true);
         }
     }
 
+    // walked away from the note: close it if it's open and hide "press E"
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Note") && activeNote != null)
         {
-            // Eðer not açýksa kapat
             if (activeNote.GetNoteStatus())
                 activeNote.ToggleNote();
 
             activeNote = null;
-            interactMessage?.SetActive(false);
+            if (interactMessage != null) interactMessage.SetActive(false);
         }
     }
 }

@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+// the monster: follows the player on the navmesh and kills them when it gets close
 public class enemyController : MonoBehaviour
 {
     public Transform target;
     public float killDistance = 1.2f;
 
     [Header("UI")]
-    [Tooltip("Inspector'dan sürükle býrak: GameOverPanel objesi")]
+    [Tooltip("Drag the GameOverPanel object here")]
     public GameObject gameOverPanel;
 
     private NavMeshAgent agent;
@@ -19,31 +20,30 @@ public class enemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        // panel oyunda baþta kapalý olsun:
-        gameOverPanel.SetActive(false);
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
     }
 
     void Update()
     {
+        // player is already dead, nothing to do
         if (gameOverTriggered)
-            return;  // bir kez tetiklendiyse artýk iþlemleri pas geç
+            return;
 
+        // walk to the player, crawling animation only while moving
         agent.SetDestination(target.position);
         bool isMoving = agent.velocity.sqrMagnitude > 0.01f;
         anim.SetBool("isMoving", isMoving);
 
+        // close enough: stop and show the death screen
         float dist = Vector3.Distance(transform.position, target.position);
         if (dist <= killDistance)
         {
             gameOverTriggered = true;
 
-            // Hareketi durdur:
             agent.isStopped = true;
             anim.SetBool("isMoving", false);
 
-            // Paneli aç, zamaný durdurablrsin
-            gameOverPanel.SetActive(true);
-            Time.timeScale = 0f;
+            DeathScreen.Show(gameOverPanel, "It caught you...");
         }
     }
 }

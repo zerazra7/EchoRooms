@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// keycard in level 1: walking into it picks it up and shows "Keycard collected!" for 2 seconds
 public class itemToplama : MonoBehaviour
 {
     public static bool hasKeycard = false;
@@ -13,24 +14,27 @@ public class itemToplama : MonoBehaviour
         if (!picked && other.CompareTag("Player"))
         {
             picked = true;
+
+            // save the keycard, the exit door in level 0 checks this
             PlayerPrefs.SetInt("HasKeycard", 1);
             PlayerPrefs.Save();
 
-            //sayacý baþlat
+            // show the message for 2 seconds
             showMessage = true;
             timer = 2f;
 
-            // Mesh'i ve collider'ý kapat (görünmez + tekrar tetikleme yok)
+            // hide the keycard and turn off its collider so it can't be picked up again
             var rend = GetComponent<MeshRenderer>();
             if (rend) rend.enabled = false;
             var col = GetComponent<Collider>();
             if (col) col.enabled = false;
 
-            // 2 saniye sonra nesneyi yokla
+            // remove it after the message is gone
             Destroy(gameObject, 2f);
         }
     }
 
+    // counts down the message time
     private void Update()
     {
         if (showMessage)
@@ -41,7 +45,7 @@ public class itemToplama : MonoBehaviour
         }
     }
 
-    // OnGUI ile ekranda label gösteriyoruz
+    // draws the message in the middle of the screen
     private void OnGUI()
     {
         if (showMessage)
@@ -52,9 +56,8 @@ public class itemToplama : MonoBehaviour
             style.fontStyle = FontStyle.Bold;
             style.normal.textColor = Color.black;
 
-            // Bütün ekraný kapsayan bir kutu:
             Rect fullScreenRect = new Rect(0, 0, Screen.width, Screen.height);
-            GUI.Label(fullScreenRect, "KeyCard alýndý!", style);
+            GUI.Label(fullScreenRect, "Keycard collected!", style);
         }
     }
 }
