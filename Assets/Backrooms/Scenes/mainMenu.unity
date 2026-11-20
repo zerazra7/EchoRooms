@@ -3008,10 +3008,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_corner_large (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 3490299424541997367, guid: 5fe33366025249b47a2392190a6c5b30, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 65d6336359d397146a15425e05c3ca0d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -74803,10 +74799,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4422793022915085685, guid: 0282ff9eff175174e9819e46afea1848, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 65d6336359d397146a15425e05c3ca0d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -216334,10 +216326,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5849617070787730657, guid: 9e3332dd57380a245a53e69e835c5f83, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 65d6336359d397146a15425e05c3ca0d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
