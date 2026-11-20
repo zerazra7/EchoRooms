@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// a note on the wall/floor: opens and closes its picture on the screen
 public class NoteScript : MonoBehaviour
 {
     private bool noteStatus;
@@ -11,20 +12,21 @@ public class NoteScript : MonoBehaviour
     [Range(0.3f, 1f)]
     public float noteScreenHeight = 0.8f;
 
+    // opens the note if it's closed, closes it if it's open
+    // the game is paused while reading
     public void ToggleNote()
     {
         noteStatus = !noteStatus;
         note.SetActive(noteStatus);
 
-        // pause / resume the game
         if (noteStatus)
         {
             ResizeNoteImage();
-            Time.timeScale = 0f; // game paused
+            Time.timeScale = 0f;
         }
         else
         {
-            Time.timeScale = 1f; // game resumed
+            Time.timeScale = 1f;
         }
     }
 
@@ -33,14 +35,13 @@ public class NoteScript : MonoBehaviour
         return noteStatus;
     }
 
-    // Makes the note picture fill a part of the screen, whatever the resolution,
-    // and keeps the picture's original proportions.
+    // makes the note the same size on every screen and keeps its shape
     void ResizeNoteImage()
     {
+        // find the paper picture (not the dark background behind it)
         Image noteImage = null;
         foreach (Image img in note.GetComponentsInChildren<Image>(true))
         {
-            // skip the dark background panel itself, we want the paper inside it
             if (img.gameObject != note && img.sprite != null)
             {
                 noteImage = img;
@@ -55,16 +56,15 @@ public class NoteScript : MonoBehaviour
         Rect spriteRect = noteImage.sprite.rect;
         float aspect = spriteRect.width / spriteRect.height;
 
-        // A full page (about 700 px tall) fills noteScreenHeight of the screen.
-        // Shorter notes, like a small strip of paper, stay smaller by the same amount,
-        // so the handwriting is the same size on every note.
+        // a full page (~700px) gets noteScreenHeight of the screen,
+        // short notes stay smaller so the writing looks the same size on all notes
         const float fullPageHeight = 700f;
         float pageFraction = Mathf.Min(1f, spriteRect.height / fullPageHeight);
 
         float height = Screen.height * noteScreenHeight * pageFraction / scaleFactor;
         float width = height * aspect;
 
-        // don't let wide notes go off the sides of the screen
+        // wide notes shouldn't go out of the screen
         float maxWidth = Screen.width * 0.9f / scaleFactor;
         if (width > maxWidth)
         {
@@ -72,13 +72,14 @@ public class NoteScript : MonoBehaviour
             height = width / aspect;
         }
 
+        // put the paper in the middle with the new size
         RectTransform rect = noteImage.rectTransform;
-        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f); // size is measured from the center
-        rect.anchoredPosition = Vector2.zero; // middle of the screen
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = Vector2.zero;
         rect.localScale = Vector3.one;
         rect.sizeDelta = new Vector2(width, height);
 
-        // move the "Press E to close." hint just under the paper so it doesn't cover the text
+        // move the "Press E to close." text right under the paper
         foreach (TMP_Text hint in note.GetComponentsInChildren<TMP_Text>(true))
         {
             if (!hint.text.StartsWith("Press E")) continue;

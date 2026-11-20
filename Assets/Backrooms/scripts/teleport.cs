@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// the ring in level 1: walking through it takes the player back to level 0
 public class RingTeleporter : MonoBehaviour
 {
     [Tooltip("Name of the scene to load")]
@@ -10,7 +11,7 @@ public class RingTeleporter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Tell Level 0 that the player is coming back through the ring
+            // tells level 0 to use a random spawn point instead of the corner
             ReturnSpawn.cameBackThroughRing = true;
             SceneManager.LoadScene(sceneName);
         }

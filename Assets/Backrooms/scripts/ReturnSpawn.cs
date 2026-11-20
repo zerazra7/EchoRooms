@@ -1,11 +1,10 @@
 using UnityEngine;
 
-// Put this on an empty object in Level 0.
-// When the player comes back from Level 1 through the ring,
-// they are moved to a random spawn point instead of the starting corner.
+// level 0: if the player came back from level 1 through the ring,
+// put them on a random spawn point instead of the starting corner
 public class ReturnSpawn : MonoBehaviour
 {
-    // Set by RingTeleporter right before Level 0 is loaded
+    // RingTeleporter sets this before loading level 0
     public static bool cameBackThroughRing = false;
 
     [Tooltip("The player object (FPSController)")]
@@ -16,21 +15,23 @@ public class ReturnSpawn : MonoBehaviour
 
     void Start()
     {
+        // new game or restart: start the escape timer, player stays in the corner
         if (!cameBackThroughRing)
         {
-            // Fresh start of Level 0 (new game or restart): start timing a new run
             RunTimer.Begin();
             return;
         }
 
-        // Use the flag only once, so restarting the level starts from the beginning again
+        // only once, a restart should start from the corner again
         cameBackThroughRing = false;
 
         if (player == null || spawnPoints == null || spawnPoints.Length == 0) return;
 
+        // pick a random spawn point
         Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        // CharacterController overrides position changes, so turn it off while moving the player
+        // move the player there
+        // the character controller has to be off, or it puts the player back
         CharacterController controller = player.GetComponent<CharacterController>();
         if (controller != null) controller.enabled = false;
 

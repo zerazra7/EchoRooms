@@ -1,8 +1,9 @@
 using UnityEngine;
 
+// exit door in level 0, only opens if the player has the keycard
 public class EscapeDoor : MonoBehaviour
 {
-    public AudioClip escapeSound; // set in the Inspector
+    public AudioClip escapeSound;
     private AudioSource audioSource;
 
     private void Start()
@@ -10,6 +11,7 @@ public class EscapeDoor : MonoBehaviour
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
+    // player with the keycard walks in: play the door sound and start the ending
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && PlayerPrefs.GetInt("HasKeycard", 0) == 1)

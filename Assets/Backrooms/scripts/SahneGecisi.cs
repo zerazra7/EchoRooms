@@ -1,15 +1,16 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // needed for scene loading
+using UnityEngine.SceneManagement;
 
+// on the right door in level 0: walking through it opens level 1 (poolrooms)
 public class SceneTransition : MonoBehaviour
 {
-    public string PoolroomsDemo; // scene to switch to
+    public string PoolroomsDemo; // not used, the scene name is written below
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) // if the object that entered is the player
+        if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Level 1"); // load the Poolrooms level
+            SceneManager.LoadScene("Level 1");
         }
     }
 }

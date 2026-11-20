@@ -1,35 +1,33 @@
 using UnityEngine;
 
+// on the player: reading notes with E when standing next to one
 public class PlayerNoteScript : MonoBehaviour
 {
-    private NoteScript activeNote;
+    private NoteScript activeNote; // the note the player is standing at
 
-    [Tooltip("Optional: a UI object shown while standing at a note (e.g. \"Press E to read\"). Can be left empty.")]
+    [Tooltip("\"Press E to read\" text, can be empty")]
     public GameObject interactMessage;
 
+    // find the "press E" text if it's not set, and hide it at the start
     void Start()
     {
-        // 1) if it was not set in the Inspector, try to find it in the scene
         if (interactMessage == null)
-        {
-            interactMessage = GameObject.Find("InteractMessage"); // optional, fine if there is none
-        }
-        // 2) only call SetActive if it exists
+            interactMessage = GameObject.Find("InteractMessage");
         if (interactMessage != null) interactMessage.SetActive(false);
     }
 
+    // E opens/closes the note, only when standing at one
     void Update()
     {
-        // only toggle with E when actually standing at a note
         if (activeNote != null && Input.GetKeyDown(KeyCode.E))
             activeNote.ToggleNote();
     }
 
+    // walked up to a note: remember it and show "press E"
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Note"))
         {
-            // get the NoteScript component
             activeNote = other.GetComponent<NoteScript>();
             if (activeNote == null)
             {
@@ -40,11 +38,11 @@ public class PlayerNoteScript : MonoBehaviour
         }
     }
 
+    // walked away from the note: close it if it's open and hide "press E"
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Note") && activeNote != null)
         {
-            // if the note is open, close it
             if (activeNote.GetNoteStatus())
                 activeNote.ToggleNote();
 

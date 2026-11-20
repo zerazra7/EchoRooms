@@ -76,4 +76,6 @@ crashlytics-build.properties
 /.claude/
 /.plastic/
 /ignore.conf
-/EchoRooms-README.md
+
+# burst output from web builds
+/Data/

@@ -3,21 +3,21 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-// Shows the best escape time at the bottom of the main menu,
-// and the time of the run that just finished (once).
-// Nothing has to be set up in the scene: the text is created automatically
-// whenever the "mainMenu" scene is loaded.
+// best escape time at the bottom of the main menu (+ last run's time, shown once)
+// gets created by itself when the menu loads
 public class MenuRecordDisplay : MonoBehaviour
 {
     const string MenuSceneName = "mainMenu";
 
+    // runs once when the game starts, then checks every scene that loads
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Init()
     {
         SceneManager.sceneLoaded += (scene, mode) => TryCreate(scene);
-        TryCreate(SceneManager.GetActiveScene()); // in case the game starts on the menu
+        TryCreate(SceneManager.GetActiveScene()); // game starts on the menu
     }
 
+    // only in the menu, and only one
     static void TryCreate(Scene scene)
     {
         if (scene.name != MenuSceneName) return;
@@ -27,7 +27,7 @@ public class MenuRecordDisplay : MonoBehaviour
 
     void Start()
     {
-        // --- build a small overlay canvas with one line of text at the bottom ---
+        // canvas on top of the menu
         var canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 100;
@@ -35,6 +35,7 @@ public class MenuRecordDisplay : MonoBehaviour
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
 
+        // text at the bottom middle of the screen
         var textGO = new GameObject("RecordText", typeof(RectTransform));
         textGO.transform.SetParent(transform, false);
         var rect = textGO.GetComponent<RectTransform>();
@@ -48,9 +49,11 @@ public class MenuRecordDisplay : MonoBehaviour
         text.fontSize = 34;
         text.alignment = TextAlignmentOptions.Center;
         text.color = new Color(0.95f, 0.92f, 0.78f, 0.9f);
-        text.raycastTarget = false; // don't block clicks on the menu buttons
+        text.raycastTarget = false; // don't block the menu buttons
 
-        // --- fill in the text ---
+        // no escape yet -> "--:--"
+        // just finished a run -> last time (or NEW RECORD!) + best time
+        // otherwise -> only the best time
         float best = RunTimer.Best;
         float last = RunTimer.Last;
 

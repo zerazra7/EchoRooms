@@ -2,13 +2,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityStandardAssets.Characters.FirstPerson;
+
+// pause menu, opens and closes with tab
 public class PauseGameManager : MonoBehaviour
 {
     public TextMeshProUGUI LevelText; // name of the current level
 
     public GameObject PauseCanvas;
 
-    public KeyCode PauseKey = KeyCode.Tab; // key used to pause
+    public KeyCode PauseKey = KeyCode.Tab;
 
     bool isPaused;
 
@@ -16,13 +18,15 @@ public class PauseGameManager : MonoBehaviour
     {
         LevelText.text = SceneManager.GetActiveScene().name;
 
-        if (Input.GetKeyUp(PauseKey)) 
-        { 
+        // tab switches between paused and not paused
+        if (Input.GetKeyUp(PauseKey))
+        {
             isPaused = !isPaused;
 
-            if (!isPaused ) ResumeGame();
+            if (!isPaused) ResumeGame();
         }
 
+        // while paused: show the menu, stop time and sound, free the mouse, stop the player
         if (isPaused)
         {
             PauseCanvas.SetActive(true);
@@ -30,34 +34,35 @@ public class PauseGameManager : MonoBehaviour
             Time.timeScale = 0;
             AudioListener.pause = true;
 
-            Cursor.lockState = CursorLockMode.None; // unlock the cursor so it can move again
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            Object.FindFirstObjectByType<FirstPersonController>().enabled = false; // disable the character
-
-        }else
+            Object.FindAnyObjectByType<FirstPersonController>().enabled = false;
+        }
+        else
         {
             PauseCanvas.SetActive(false);
         }
-
     }
 
+    // resume button: everything back to normal, mouse locked to the center again
     public void ResumeGame()
     {
-        isPaused = false; // unpause the game
+        isPaused = false;
 
         Time.timeScale = 1;
         AudioListener.pause = false;
 
-        Cursor.lockState = CursorLockMode.Locked; // lock the cursor back to the center
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Object.FindFirstObjectByType<FirstPersonController>().enabled = true; // enable the character again
+        Object.FindAnyObjectByType<FirstPersonController>().enabled = true;
     }
 
+    // quit button: back to the main menu
     public void QuitGame()
     {
-        isPaused = false; // unpause the game
+        isPaused = false;
 
         Time.timeScale = 1;
         AudioListener.pause = false;
@@ -65,11 +70,10 @@ public class PauseGameManager : MonoBehaviour
         SceneManager.LoadScene("mainMenu");
     }
 
+    // restart button: opens the same level again
     public void RestartLevel()
     {
         ResumeGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
-        
 }

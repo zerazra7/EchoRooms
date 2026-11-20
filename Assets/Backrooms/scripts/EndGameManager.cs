@@ -4,14 +4,13 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-// Ending sequence: the screen fades to black, "YOU ESCAPED" appears,
-// then "...for now.", and the game returns to the main menu.
-// The UI is built in code, so no panel has to be set up in the scene.
+// ending: fade to black -> "YOU ESCAPED" -> "...for now." -> main menu
+// all the ui is made here in code, no panel needed in the scene
 public class EndGameManager : MonoBehaviour
 {
     public static EndGameManager Instance;
 
-    [Header("Old UI (hidden, kept so the scene references don't break)")]
+    [Header("Old UI (not used anymore, the scene still references it)")]
     public GameObject endPanel;
     public TextMeshProUGUI endText;
 
@@ -21,6 +20,7 @@ public class EndGameManager : MonoBehaviour
 
     bool ending = false;
 
+    // only one EndGameManager, the exit door finds it through Instance
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -29,9 +29,11 @@ public class EndGameManager : MonoBehaviour
         if (endPanel != null) endPanel.SetActive(false);
     }
 
+    // the exit door calls this when the player has the keycard
     public void ShowEndGame()
     {
-        if (ending) return; // the exit trigger can fire more than once
+        // the door trigger can fire more than once, only end once
+        if (ending) return;
         ending = true;
 
         RunTimer.Finish();
@@ -40,10 +42,10 @@ public class EndGameManager : MonoBehaviour
 
     IEnumerator EndSequence()
     {
-        // Freeze the game; the sequence below uses unscaled time
+        // stop the game, the fades below still run because they use real time
         Time.timeScale = 0f;
 
-        // --- build the overlay ---
+        // canvas that covers the whole screen, on top of everything
         var canvasGO = new GameObject("EndScreen");
         var canvas = canvasGO.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -52,6 +54,7 @@ public class EndGameManager : MonoBehaviour
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
 
+        // black background and the two texts, all invisible at first
         var black = CreateImage(canvasGO.transform, Color.black);
         var blackGroup = black.gameObject.AddComponent<CanvasGroup>();
         blackGroup.alpha = 0f;
@@ -63,7 +66,7 @@ public class EndGameManager : MonoBehaviour
         title.alpha = 0f;
         subtitle.alpha = 0f;
 
-        // --- play the sequence ---
+        // show them one after another
         yield return Fade(a => blackGroup.alpha = a, fadeDuration);
         yield return new WaitForSecondsRealtime(0.5f);
         yield return Fade(a => title.alpha = a, 1.5f);
@@ -71,13 +74,14 @@ public class EndGameManager : MonoBehaviour
         yield return Fade(a => subtitle.alpha = a, 1f);
         yield return new WaitForSecondsRealtime(2.5f);
 
-        // --- back to the menu ---
+        // back to normal and load the main menu
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene(menuSceneName);
     }
 
+    // takes alpha from 0 to 1 over the duration
     static IEnumerator Fade(System.Action<float> setAlpha, float duration)
     {
         for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
@@ -88,6 +92,7 @@ public class EndGameManager : MonoBehaviour
         setAlpha(1f);
     }
 
+    // makes an image that fills the whole screen
     static Image CreateImage(Transform parent, Color color)
     {
         var go = new GameObject("Background", typeof(RectTransform));
@@ -102,6 +107,7 @@ public class EndGameManager : MonoBehaviour
         return img;
     }
 
+    // makes a centered white text at the given position
     static TextMeshProUGUI CreateText(Transform parent, string text, float size, Vector2 position)
     {
         var go = new GameObject(text, typeof(RectTransform));

@@ -1,17 +1,18 @@
 using UnityEngine;
 
+// the keycard is saved in PlayerPrefs, so it would still be there next time the game opens
+// this removes it once when the game starts
 public class ResetKeycardOnStart : MonoBehaviour
 {
-    // Static flag: false when the game starts, true after the first reset
+    // false when the game starts, true after the first reset
     private static bool hasReset = false;
 
     void Awake()
     {
-        // only clear it if it has not been reset yet
+        // only the first time, not every time a scene loads
         if (!hasReset)
         {
             PlayerPrefs.DeleteKey("HasKeycard");
-            // or: PlayerPrefs.SetInt("HasKeycard", 0);
             PlayerPrefs.Save();
             hasReset = true;
         }

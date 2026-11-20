@@ -1,8 +1,7 @@
 using UnityEngine;
 
-// Keeps track of how long the current run takes and stores the best escape time.
-// A run starts when Level 0 is entered fresh (new game or restart)
-// and keeps going through Level 1 until the player escapes.
+// escape timer + best time (saved in PlayerPrefs)
+// a run starts when level 0 is opened from the start and ends at the exit door
 public static class RunTimer
 {
     const string BestKey = "BestEscapeTime";
@@ -12,16 +11,19 @@ public static class RunTimer
     static float startTime;
     static bool running;
 
+    // starts the timer
+    // Time.time stops while a note is open, so reading doesn't count
     public static void Begin()
     {
-        startTime = Time.time; // game time, so paused moments (like reading notes) don't count
+        startTime = Time.time;
         running = true;
     }
 
-    // Call when the player escapes. Saves the time and updates the record.
+    // stops the timer and saves the time, also saves it as best if it's a record
     public static void Finish()
     {
-        if (!running) return; // e.g. the run started from "Load Game" halfway through
+        // game was loaded from a save, so this is not a full run
+        if (!running) return;
         running = false;
 
         float time = Time.time - startTime;
@@ -34,11 +36,12 @@ public static class RunTimer
         PlayerPrefs.Save();
     }
 
+    // saved times, 0 if there are none yet
     public static float Best => PlayerPrefs.GetFloat(BestKey, 0f);
     public static float Last => PlayerPrefs.GetFloat(LastKey, 0f);
     public static bool LastWasRecord => PlayerPrefs.GetInt(LastWasRecordKey, 0) == 1;
 
-    // Clears the "last run" info so it is only shown once on the menu
+    // the menu shows the last run only once, then deletes it
     public static void ClearLast()
     {
         PlayerPrefs.DeleteKey(LastKey);
@@ -46,6 +49,7 @@ public static class RunTimer
         PlayerPrefs.Save();
     }
 
+    // seconds -> "m:ss"
     public static string Format(float seconds)
     {
         int total = Mathf.FloorToInt(seconds);

@@ -4,13 +4,15 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 #endif
 
+// on the player: dies when the monster touches them
 public class PlayerGameOver : MonoBehaviour
 {
     [Header("Game Over UI Panel")]
-    [SerializeField] private GameObject gameOverPanel;  // drag it in from the Inspector
+    [SerializeField] private GameObject gameOverPanel;
 
     private bool isGameOver = false;
 
+    // touched by the monster: show the death screen (only once)
     private void OnTriggerEnter(Collider other)
     {
         if (isGameOver) return;
@@ -23,27 +25,22 @@ public class PlayerGameOver : MonoBehaviour
 
     private void GameOver()
     {
-        // freeze the game and show "YOU DIED", then the Game Over panel
         DeathScreen.Show(gameOverPanel, "It caught you...");
     }
 
-    // --- hook these up to the UI buttons ---
-
-    // for the New Game button
+    // buttons of the old game over panel
+    // restart: time back to normal and open the same level again
     public void RestartGame()
     {
-        // set time scale back to normal
         Time.timeScale = 1f;
-        // reload the same scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // for the Exit Game button
+    // quit: close the game (stops play mode in the editor)
     public void QuitGame()
     {
         Application.Quit();
 #if UNITY_EDITOR
-        // stops Play mode in the editor
         EditorApplication.isPlaying = false;
 #endif
     }

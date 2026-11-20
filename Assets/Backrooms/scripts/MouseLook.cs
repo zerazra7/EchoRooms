@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// first mouse look script (the game now uses the FPSController's own mouse look)
 public class NewMonoBehaviourScript : MonoBehaviour
 {
     [Range(50, 500)]
@@ -8,15 +9,14 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public Transform body;
 
     float xRot = 0f;
-       
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // lock the mouse to the middle of the screen
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;   
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
+    // mouse up/down turns the camera (max 80 degrees), left/right turns the body
     private void Update()
     {
         float rotX = Input.GetAxisRaw("Mouse X") * sens * Time.deltaTime;

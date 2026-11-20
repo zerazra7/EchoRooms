@@ -4,30 +4,28 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
-// Death sequence: the screen turns dark red, "YOU DIED" slams in with a line
-// about what happened, then the screen fades to black and the main menu loads.
-// The old Game Over panel stays hidden.
-// The UI is built in code, so nothing has to be set up in the scene.
+// death screen: red screen + "YOU DIED", then it goes black and back to the main menu
+// all the ui is made here in code, the old game over panel just stays hidden
 public class DeathScreen : MonoBehaviour
 {
     const string MenuSceneName = "mainMenu";
 
-    GameObject gameOverPanel;
     string reason;
 
     static bool showing;
 
-    // Call this instead of gameOverPanel.SetActive(true)
+    // the monster and the death zones call this when the player dies
     public static void Show(GameObject gameOverPanel, string reason)
     {
-        if (showing) return; // e.g. the monster and a death zone at the same time
+        // only one death screen at a time (monster and water can hit at the same moment)
+        if (showing) return;
         showing = true;
 
-        Time.timeScale = 0f; // freeze the game, the animation uses unscaled time
+        // stop the game, the animation below still runs because it uses real time
+        Time.timeScale = 0f;
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
 
         var screen = new GameObject("DeathScreen").AddComponent<DeathScreen>();
-        screen.gameOverPanel = gameOverPanel;
         screen.reason = reason;
     }
 
@@ -36,31 +34,24 @@ public class DeathScreen : MonoBehaviour
         StartCoroutine(Sequence());
     }
 
+    // scene changed, so the next death can show the screen again
     void OnDestroy()
     {
-        showing = false; // scene reloaded, ready for the next death
+        showing = false;
     }
 
     IEnumerator Sequence()
     {
-        // --- build the overlay ---
+        // canvas that covers the whole screen, on top of everything
         var canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 998;
         var scaler = gameObject.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
-        var group = gameObject.AddComponent<CanvasGroup>();
-        group.blocksRaycasts = false; // never block the Game Over buttons
 
-        var bgGO = new GameObject("Background", typeof(RectTransform));
-        bgGO.transform.SetParent(transform, false);
-        var bgRect = bgGO.GetComponent<RectTransform>();
-        bgRect.anchorMin = Vector2.zero;
-        bgRect.anchorMax = Vector2.one;
-        bgRect.sizeDelta = Vector2.zero;
-        var bg = bgGO.AddComponent<Image>();
-        bg.color = new Color(0.25f, 0f, 0f, 0f);
+        // red background, title and the reason text, all invisible at first
+        var bg = CreateFullScreenImage("Background", new Color(0.25f, 0f, 0f, 0f));
 
         var title = CreateText("YOU DIED", 150, new Vector2(0, 30));
         title.color = new Color(0.8f, 0.05f, 0.05f);
@@ -71,18 +62,19 @@ public class DeathScreen : MonoBehaviour
         title.alpha = 0f;
         subtitle.alpha = 0f;
 
-        // --- play it ---
-        // red flash, while all game sounds (chase music, monster) fade out
+        // screen turns red and all sounds fade out
         yield return Animate(0.4f, t =>
         {
             bg.color = new Color(0.25f, 0f, 0f, t * 0.85f);
             AudioListener.volume = 1f - t;
         });
-        foreach (AudioSource source in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
-            source.Stop();
-        AudioListener.volume = 1f; // nothing is playing now, so the menu can have sound again
 
-        // title drops in from big to normal size
+        // stop every sound, then turn the volume back up for the menu
+        foreach (AudioSource source in FindObjectsByType<AudioSource>())
+            source.Stop();
+        AudioListener.volume = 1f;
+
+        // "YOU DIED" comes in big and shrinks to normal size, then the reason shows up
         yield return Animate(0.35f, t =>
         {
             title.alpha = t;
@@ -92,23 +84,33 @@ public class DeathScreen : MonoBehaviour
         yield return Animate(0.8f, t => subtitle.alpha = t);
         yield return new WaitForSecondsRealtime(1.8f);
 
-        // fade to black and go back to the main menu
-        var black = new GameObject("Black", typeof(RectTransform));
-        black.transform.SetParent(transform, false);
-        var blackRect = black.GetComponent<RectTransform>();
-        blackRect.anchorMin = Vector2.zero;
-        blackRect.anchorMax = Vector2.one;
-        blackRect.sizeDelta = Vector2.zero;
-        var blackImage = black.AddComponent<Image>();
-        blackImage.color = new Color(0f, 0f, 0f, 0f);
-        yield return Animate(1f, t => blackImage.color = new Color(0f, 0f, 0f, t));
+        // fade to black
+        var black = CreateFullScreenImage("Black", new Color(0f, 0f, 0f, 0f));
+        yield return Animate(1f, t => black.color = new Color(0f, 0f, 0f, t));
 
+        // back to normal and load the main menu
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene(MenuSceneName);
     }
 
+    // makes an image that fills the whole screen
+    Image CreateFullScreenImage(string name, Color color)
+    {
+        var go = new GameObject(name, typeof(RectTransform));
+        go.transform.SetParent(transform, false);
+        var rect = go.GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.sizeDelta = Vector2.zero;
+        var img = go.AddComponent<Image>();
+        img.color = color;
+        img.raycastTarget = false;
+        return img;
+    }
+
+    // makes a centered text at the given position
     TextMeshProUGUI CreateText(string text, float size, Vector2 position)
     {
         var go = new GameObject("Text", typeof(RectTransform));
@@ -124,6 +126,7 @@ public class DeathScreen : MonoBehaviour
         return tmp;
     }
 
+    // runs step() every frame with a value going from 0 to 1 over the duration
     IEnumerator Animate(float duration, System.Action<float> step)
     {
         for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
